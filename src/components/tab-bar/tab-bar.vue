@@ -1,25 +1,18 @@
 <template>
   <div class="tab-bar">
-    <div class="tab-bar-item">
-      <img src="@/assets/img/tabbar/tab_home.png" alt="">
-      <span class="text">首页</span>
-    </div>
-    <div class="tab-bar-item">
-      <img src="@/assets/img/tabbar/tab_favor.png" alt="">
-      <span class="text">收藏</span>
-    </div>
-    <div class="tab-bar-item">
-      <img src="@/assets/img/tabbar/tab_order.png" alt="">
-      <span class="text">订单</span>
-    </div>
-    <div class="tab-bar-item">
-      <img src="@/assets/img/tabbar/tab_message.png" alt="">
-      <span class="text">消息</span>
-    </div>
+    <template v-for="item in tabBarData" :key="item.text">
+      <div class="tab-bar-item">
+        <img :src="getAssetURL(item.image)" alt="">
+        <span class="text">{{ item.text }}</span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
+import tabBarData from '@/assets/data/tabbar';
+import { getAssetURL } from '@/utils/load_assets';
+
 
 </script>
 
