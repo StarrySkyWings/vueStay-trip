@@ -10,19 +10,26 @@ const router = createRouter({
     },
     {
       path: "/home",
-      component:() => import('@/views/Home/home.vue'),
+      component: () => import("@/views/Home/home.vue"),
     },
     {
       path: "/favor",
-      component:() => import('@/views/Favor/favor.vue'),
+      component: () => import("@/views/Favor/favor.vue"),
     },
     {
       path: "/order",
-      component:() => import('@/views/Order/order.vue'),
+      component: () => import("@/views/Order/order.vue"),
     },
     {
       path: "/message",
-      component:() => import('@/views/Message/message.vue'),
+      component: () => import("@/views/Message/message.vue"),
+    },
+    {
+      path: "/city",
+      component: () => import("@/views/City/city.vue"),
+      // meta: {
+      //   hidden: true,
+      // },
     },
   ],
 });
