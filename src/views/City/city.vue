@@ -13,17 +13,15 @@
       </van-tabs>
     </div>
     <div class="content">
-      <template v-for="item in currentGroup?.cities">
-        <div>
-          {{ item }}
-        </div>
+      <template v-for="(value,key,index) in allCities" :key="index">
+        <cityGroup v-show="tabActive === key" :group-data="value"></cityGroup>
       </template>
-      
     </div>
   </div>
 </template>
 
 <script setup>
+import cityGroup from './cpns/city-group.vue';
 import useCityStore from '@/stores/modules/city';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
@@ -46,11 +44,15 @@ cityStore.fetchAllCitiesData()
 const { allCities } = storeToRefs(cityStore)
 
 // 获取选中标签后的数据
-const currentGroup = computed(() => allCities.value[tabActive.value])
+// const currentGroup = computed(() => allCities.value[tabActive.value])
 </script>
 
 <style lang="less" scoped>
 .city {
+  .top {
+    position: relative;
+    z-index: 9;
+  }
 
   .content {
     height: calc(100vh - 98px);
