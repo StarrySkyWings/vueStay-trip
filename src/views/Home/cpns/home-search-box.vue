@@ -1,28 +1,31 @@
 <template>
-  <!-- 位置信息 -->
-  <div class="location">
-    <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
-    <div class="position" @click="positionClick">
-      <span class="text">你的位置</span>
-      <img src="@/assets/img/home/icon_location.png" alt="">
+  <div class="search-box">
+    <!-- 位置信息 -->
+    <div class="location">
+      <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
+      <div class="position" @click="positionClick">
+        <span class="text">你的位置</span>
+        <img src="@/assets/img/home/icon_location.png" alt="">
+      </div>
     </div>
-  </div>
 
-  <!-- 日期范围 -->
-  <div class="section date-range bottom-gray-line">
-    <div class="start">
-      <div class="date">
-        <span class="tip">入住</span>
-        <span class="time">{{ startDate }}</span>
+    <!-- 日期范围 -->
+    <div class="section date-range bottom-gray-line" @click="showCalendar = true">
+      <div class="start">
+        <div class="date">
+          <span class="tip">入住</span>
+          <span class="time">{{ startDate }}</span>
+        </div>
+        <div class="stay">共一晚</div>
       </div>
-      <div class="stay">共一晚</div>
-    </div>
-    <div class="end">
-      <div class="date">
-        <span class="tip">离店</span>
-        <span class="time">{{ endDate }}</span>
+      <div class="end">
+        <div class="date">
+          <span class="tip">离店</span>
+          <span class="time">{{ endDate }}</span>
+        </div>
       </div>
     </div>
+    <van-calendar v-model:show="showCalendar" color="#ff9854" type="range" :round="false" :show-confirm="false" @confirm="onConfirm" />
   </div>
 </template>
 
@@ -56,10 +59,25 @@ const startDate = ref(formatMonthDay(nowDate))
 const newDate = nowDate.setDate(nowDate.getDate() + 1)
 const endDate = ref(formatMonthDay(newDate))
 
+const showCalendar = ref(false)
+const onConfirm = (value) => {
+  // 设置日期
+  const selectStartDate = value[0]
+  const selectEndDate = value[1]
 
+  startDate.value = formatMonthDay(selectStartDate)
+  endDate.value = formatMonthDay(selectEndDate)
+
+  // 隐藏日历
+  showCalendar.value = false
+}
 </script>
 
 <style lang="less" scoped>
+.search-box {
+  --van-calendar-popup-height: 100%
+}
+
 .location {
   display: flex;
   align-items: center;
