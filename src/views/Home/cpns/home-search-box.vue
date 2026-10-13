@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <div class="city" @click="cityClick">广州</div>
+    <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
     <div class="position" @click="positionClick">
       <span class="text">你的位置</span>
       <img src="@/assets/img/home/icon_location.png" alt="">
@@ -10,6 +10,8 @@
 
 <script setup>
 import router from '@/router'
+import useCityStore from '@/stores/modules/city'
+import { storeToRefs } from 'pinia'
 
 
 // 跳转到city页面
@@ -20,11 +22,16 @@ const cityClick = () => {
 // 位置/城市
 const positionClick = () => {
   navigator.geolocation.getCurrentPosition(res => {
-    console.log('获取成功',res)
-  },err => {
+    console.log('获取成功', res)
+  }, err => {
     console.log('获取失败')
   })
 }
+
+// 当前城市位置 
+const cityStore = useCityStore()
+const { currentCity } = storeToRefs(cityStore)
+
 </script>
 
 <style lang="less" scoped>
