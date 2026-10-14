@@ -1,10 +1,11 @@
-import { getHomeCategories, getHomeHotSuggests } from "@/services";
+import { getHomeCategories, getHomeHotSuggests, getHomeHouseList } from "@/services";
 import { defineStore } from "pinia";
 
 const useHomeStore = defineStore("home", {
   state: () => ({
     hotSuggests: [],
     categories: [],
+    houselist:[]
   }),
   actions: {
     async fetchHotSuggestData() {
@@ -15,6 +16,10 @@ const useHomeStore = defineStore("home", {
       const res = await getHomeCategories();
       this.categories = res.data;
     },
+    fetchHouselistData() {
+      const res = getHomeHouseList(1)
+      this.houselist = res.data
+    }
   },
 });
 
