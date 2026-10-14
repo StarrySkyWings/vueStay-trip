@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <!-- 位置信息 -->
-    <div class="location">
+    <div class="location bottom-gray-line">
       <div class="city" @click="cityClick">{{ currentCity.cityName }}</div>
       <div class="position" @click="positionClick">
         <span class="text">你的位置</span>
@@ -27,34 +27,43 @@
     </div>
     <van-calendar v-model:show="showCalendar" color="#ff9854" type="range" :round="false" :show-confirm="false"
       @confirm="onConfirm" />
+
+    <!-- 价格/人数选择 -->
+    <div class="section price-counter bottom-gray-line">
+      <div class="start">价格不限</div>
+      <div class="end">人数不限</div>
+    </div>
+    <!-- 关键字 -->
+    <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+
+    <!-- 热门建议 -->
   </div>
 </template>
 
 <script setup>
-import router from '@/router'
 import useCityStore from '@/stores/modules/city'
 import { formatMonthDay, getDiffDays } from '@/utils/format_date'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-// 跳转到city页面
+const router = useRouter()
+// 位置/城市
 const cityClick = () => {
   router.push('/city')
 }
-
-// 位置/城市
 const positionClick = () => {
   navigator.geolocation.getCurrentPosition(res => {
     console.log('获取成功', res)
   }, err => {
-    console.log('获取失败')
+    console.log('获取失败', err)
   })
 }
-
-// 当前城市位置 
 const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
 
+
+// 日期范围的处理
 const nowDate = new Date()
 const newDate = new Date()
 newDate.setDate(nowDate.getDate() + 1)
@@ -75,6 +84,8 @@ const onConfirm = (value) => {
   // 隐藏日历
   showCalendar.value = false
 }
+
+
 </script>
 
 <style lang="less" scoped>
@@ -160,6 +171,12 @@ const onConfirm = (value) => {
     text-align: center;
     font-size: 12px;
     color: #666;
+  }
+}
+
+.price-counter {
+  .start {
+    border-right: 1px solid var(--line-color);
   }
 }
 </style>
