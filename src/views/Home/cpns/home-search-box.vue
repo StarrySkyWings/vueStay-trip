@@ -37,17 +37,28 @@
     <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
 
     <!-- 热门建议 -->
+    <div class="section hot-suggest">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div class="item" :style="{ color: item.tagText.color, background: item.tagText.background.color }">
+          {{ item.tagText.text }}
+        </div>
+      </template>
+    </div>
+
+
   </div>
 </template>
 
 <script setup>
 import useCityStore from '@/stores/modules/city'
+import useHomeStore from '@/stores/modules/home'
 import { formatMonthDay, getDiffDays } from '@/utils/format_date'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
 // 位置/城市
 const cityClick = () => {
   router.push('/city')
@@ -84,6 +95,11 @@ const onConfirm = (value) => {
   // 隐藏日历
   showCalendar.value = false
 }
+
+// 热门建议
+const homeStore = useHomeStore()
+homeStore.fetchHotSuggestData()
+const { hotSuggests } = storeToRefs(homeStore)
 
 
 </script>
@@ -179,4 +195,19 @@ const onConfirm = (value) => {
     border-right: 1px solid var(--line-color);
   }
 }
+
+.hot-suggest {
+  margin: 10px 0;
+  height: auto;
+
+  .item {
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+
 </style>
