@@ -4,11 +4,11 @@
       <div class="select-time">
         <div class="item start">
           <div class="name">住</div>
-          <div class="date">09.21</div>
+          <div class="date">{{ startDateStr }}</div>
         </div>
         <div class="item end">
           <div class="name">离</div>
-          <div class="date">09.23</div>
+          <div class="date">{{ endDateStr }}</div>
         </div>
       </div>
       <div class="content">
@@ -22,7 +22,15 @@
 </template>
 
 <script setup>
+import useMainStore from '@/stores/modules/main';
+import { formatMonthDay } from '@/utils/format_date';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
+const mainStore = useMainStore()
+const { nowDate, newDate } = storeToRefs(mainStore)
+const startDateStr = computed(() => formatMonthDay(nowDate.value, 'MM.DD'))
+const endDateStr = computed(() => formatMonthDay(newDate.value, 'MM.DD'))
 </script>
 
 <style lang="less" scoped>

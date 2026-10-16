@@ -58,9 +58,10 @@
 <script setup>
 import useCityStore from '@/stores/modules/city'
 import useHomeStore from '@/stores/modules/home'
+import useMainStore from '@/stores/modules/main'
 import { formatMonthDay, getDiffDays } from '@/utils/format_date'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -81,12 +82,11 @@ const { currentCity } = storeToRefs(cityStore)
 
 
 // 日期范围的处理
-const nowDate = new Date()
-const newDate = new Date()
-newDate.setDate(nowDate.getDate() + 1)
-const startDate = ref(formatMonthDay(nowDate))
-const endDate = ref(formatMonthDay(newDate))
-const stayCount = ref(getDiffDays(nowDate, newDate))
+const mainStore = useMainStore()
+const { nowDate, newDate } = storeToRefs(mainStore)
+const startDate = computed(() => formatMonthDay(nowDate.value))
+const endDate = computed(() => formatMonthDay(newDate.value))
+const stayCount = ref(getDiffDays(nowDate.value, newDate.value))
 
 const showCalendar = ref(false)
 const onConfirm = (value) => {
@@ -94,8 +94,8 @@ const onConfirm = (value) => {
   const selectStartDate = value[0]
   const selectEndDate = value[1]
 
-  startDate.value = formatMonthDay(selectStartDate)
-  endDate.value = formatMonthDay(selectEndDate)
+  mainStore.nowDate = selectStartDate
+  mainStore.newDate = selectEndDate
   stayCount.value = getDiffDays(selectStartDate, selectEndDate)
 
   // 隐藏日历

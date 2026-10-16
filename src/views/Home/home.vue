@@ -42,5 +42,4 @@ const isShowSearchBar = computed(() => {
 .home {
   padding-bottom: 60px;
 }
-
 </style>
