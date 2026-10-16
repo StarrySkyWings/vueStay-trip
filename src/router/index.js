@@ -27,13 +27,14 @@ const router = createRouter({
     {
       path: "/city",
       component: () => import("@/views/City/city.vue"),
-      // meta: {
-      //   hidden: true,
-      // },
     },
     {
       path: "/search",
       component: () => import("@/views/Search/search.vue"),
+    },
+    {
+      path: "/detail/:id",
+      component: () => import("@/views/Detail/detail.vue"),
     },
   ],
 });
