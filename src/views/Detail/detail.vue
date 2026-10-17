@@ -3,6 +3,7 @@
     <detailNavBar />
     <div class="main" v-if="mainPart">
       <detailSwipe :swipe-data="mainPart.topModule.housePicture.housePics" />
+      <detailInfos :top-infos="mainPart.topModule"/>
     </div>
   </div>
 </template>
@@ -10,6 +11,7 @@
 <script setup>
 import detailNavBar from './cpns/detail-nav-bar.vue';
 import detailSwipe from './cpns/detail-swipe.vue';
+import detailInfos from './cpns/detail-infos.vue';
 import useDetailStore from '@/stores/modules/detail';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
