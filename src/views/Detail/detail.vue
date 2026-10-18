@@ -8,8 +8,10 @@
       <detailLandlord :landlord="mainPart.dynamicModule.landlordModule" />
       <detailComment :comment="mainPart.dynamicModule.commentModule" />
       <detailNotice :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
-      <detailMap :position="mainPart.dynamicModule.positionModule"/>
+      <detailMap :position="mainPart.dynamicModule.positionModule" />
+      <detailIntro :price-intro="mainPart.introductionModule" />
     </div>
+    <detailFooter />
   </div>
 </template>
 
@@ -22,10 +24,12 @@ import detailLandlord from './cpns/detail-landlord.vue';
 import detailComment from './cpns/detail-comment.vue';
 import detailNotice from './cpns/detail-notice.vue';
 import detailMap from './cpns/detail-map.vue';
+import detailIntro from './cpns/detail-Intro.vue';
+import detailFooter from './cpns/detail-footer.vue';
+
 import useDetailStore from '@/stores/modules/detail';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
-import DetailIntro from './cpns/detail-Intro.vue';
 
 const route = useRoute()
 const houseId = route.params.id
