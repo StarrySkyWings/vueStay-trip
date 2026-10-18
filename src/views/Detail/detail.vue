@@ -8,6 +8,7 @@
       <detailLandlord :landlord="mainPart.dynamicModule.landlordModule" />
       <detailComment :comment="mainPart.dynamicModule.commentModule" />
       <detailNotice :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
+      <detailMap :position="mainPart.dynamicModule.positionModule"/>
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ import detailFacility from './cpns/detail-facility.vue';
 import detailLandlord from './cpns/detail-landlord.vue';
 import detailComment from './cpns/detail-comment.vue';
 import detailNotice from './cpns/detail-notice.vue';
+import detailMap from './cpns/detail-map.vue';
 import useDetailStore from '@/stores/modules/detail';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
