@@ -3,8 +3,11 @@
     <detailNavBar />
     <div class="main" v-if="mainPart">
       <detailSwipe :swipe-data="mainPart.topModule.housePicture.housePics" />
-      <detailInfos :top-infos="mainPart.topModule"/>
-      <detailFacility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility"/>
+      <detailInfos :top-infos="mainPart.topModule" />
+      <detailFacility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <detailLandlord :landlord="mainPart.dynamicModule.landlordModule" />
+      <detailComment :comment="mainPart.dynamicModule.commentModule" />
+      <detailNotice :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
     </div>
   </div>
 </template>
@@ -14,9 +17,13 @@ import detailNavBar from './cpns/detail-nav-bar.vue';
 import detailSwipe from './cpns/detail-swipe.vue';
 import detailInfos from './cpns/detail-infos.vue';
 import detailFacility from './cpns/detail-facility.vue';
+import detailLandlord from './cpns/detail-landlord.vue';
+import detailComment from './cpns/detail-comment.vue';
+import detailNotice from './cpns/detail-notice.vue';
 import useDetailStore from '@/stores/modules/detail';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
+import DetailIntro from './cpns/detail-Intro.vue';
 
 const route = useRoute()
 const houseId = route.params.id
