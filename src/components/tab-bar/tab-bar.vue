@@ -3,7 +3,7 @@
     <van-tabbar v-model="currentIndex" active-color="#ff9854" route>
       <template v-for="(item, index) in tabBarData" :key="index">
         <van-tabbar-item :to="item.path">
-          <span>{{ item.text }}</span>
+          <span :class="{ text: currentIndex !== index }">{{ item.text }}</span>
           <template #icon>
             <img v-if="currentIndex !== index" :src="getAssetURL(item.image)" alt="">
             <img v-else :src="getAssetURL(item.imageActive)" alt="">
@@ -33,6 +33,10 @@ watch(route, (newRoute) => {
 
 <style lang="less" scoped>
 .tab-bar {
+
+  .text {
+    color: #323233
+  }
 
   img {
     height: 26px;

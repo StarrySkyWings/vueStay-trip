@@ -1,14 +1,15 @@
 <template>
-  <div class="detail top-page">
+  <div class="detail top-page" ref="detailRef">
+    <tabControl v-if="showTabControl" :titles="names" @tab-item-click="tabClick" />
     <detailNavBar />
-    <div class="main" v-if="mainPart">
+    <div class="main" v-if="mainPart" v-memo="[mainPart]">
       <detailSwipe :swipe-data="mainPart.topModule.housePicture.housePics" />
-      <detailInfos :top-infos="mainPart.topModule" />
-      <detailFacility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
-      <detailLandlord :landlord="mainPart.dynamicModule.landlordModule" />
-      <detailComment :comment="mainPart.dynamicModule.commentModule" />
-      <detailNotice :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
-      <detailMap :position="mainPart.dynamicModule.positionModule" />
+      <detailInfos name="描述" :ref="getSectionRef" :top-infos="mainPart.topModule" />
+      <detailFacility name="设施" :ref="getSectionRef" :house-facility="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <detailLandlord name="房东" :ref="getSectionRef" :landlord="mainPart.dynamicModule.landlordModule" />
+      <detailComment name="评论" :ref="getSectionRef" :comment="mainPart.dynamicModule.commentModule" />
+      <detailNotice name="须知" :ref="getSectionRef" :order-rules="mainPart.dynamicModule.rulesModule.orderRules" />
+      <detailMap name="周边" :ref="getSectionRef" :position="mainPart.dynamicModule.positionModule" />
       <detailIntro :price-intro="mainPart.introductionModule" />
     </div>
     <detailFooter />
@@ -26,10 +27,13 @@ import detailNotice from './cpns/detail-notice.vue';
 import detailMap from './cpns/detail-map.vue';
 import detailIntro from './cpns/detail-Intro.vue';
 import detailFooter from './cpns/detail-footer.vue';
+import tabControl from '@/components/tab-control/tab-control.vue';
 
 import useDetailStore from '@/stores/modules/detail';
 import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import useScroll from '@/hooks/useScroll.js';
 
 const route = useRoute()
 const houseId = route.params.id
@@ -37,6 +41,36 @@ const houseId = route.params.id
 const detailStore = useDetailStore()
 detailStore.fetchHouseDetailData(houseId)
 const { mainPart } = storeToRefs(detailStore)
+
+// tabControl相关的操作
+const detailRef = ref()
+const { scrollTop } = useScroll(detailRef)
+const showTabControl = computed(() => {
+  return scrollTop.value >= 300
+})
+
+const sectionEls = ref({})
+const names = computed(() => {
+  return Object.keys(sectionEls.value)
+})
+const getSectionRef = (value) => {
+  const name = value.$el.getAttribute('name')
+  sectionEls.value[name] = value.$el
+}
+const tabClick = (index) => {
+  const key = Object.keys(sectionEls.value)[index]
+  const el = sectionEls.value[key]
+  let instance = el.offsetTop
+  if(index !== 0) {
+    instance = instance - 44
+  }
+
+  detailRef.value.scrollTo({
+    top: instance,
+    behavior:'smooth'
+  })
+}
+
 </script>
 
 <style lang="less" scoped></style>
