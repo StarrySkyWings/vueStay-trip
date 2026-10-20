@@ -14,6 +14,7 @@
       <detailIntro :price-intro="mainPart.introductionModule" />
     </div>
     <detailFooter />
+    <detailActionBar :current-house="currentHouse" />
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import detailNotice from './cpns/detail-notice.vue';
 import detailMap from './cpns/detail-map.vue';
 import detailIntro from './cpns/detail-Intro.vue';
 import detailFooter from './cpns/detail-footer.vue';
+import detailActionBar from './cpns/detail-action-bar.vue';
 import tabControl from '@/components/tab-control/tab-control.vue';
 
 import useDetailStore from '@/stores/modules/detail';
@@ -42,7 +44,7 @@ const houseId = route.params.id
 // 请求详情页数据
 const detailStore = useDetailStore()
 detailStore.fetchHouseDetailData(houseId)
-const { mainPart } = storeToRefs(detailStore)
+const { mainPart, currentHouse } = storeToRefs(detailStore)
 
 // tabControl相关的操作
 const detailRef = ref()
@@ -81,14 +83,14 @@ const tabClick = (index) => {
 // 页面滚动，滚动时匹配对应的tabControl的index
 const tabControlRef = ref()
 watch(scrollTop, (newValue) => {
-  if(newValue === currentDistance) {
+  if (newValue === currentDistance) {
     isChick = false
   }
-  if(isChick) return 
+  if (isChick) return
   // 获取所有的区域的offsetTops
   const els = Object.values(sectionEls.value)
   const offsetTops = els.map(el => el.offsetTop)
-  
+
   // 根据newValue去匹配想要的索引
   let index = offsetTops.length - 1
   for (let i = 0; i < offsetTops.length; i++) {

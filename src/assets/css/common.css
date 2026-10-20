@@ -30,4 +30,18 @@ body {
   background: url(../img/detail/icon_check.png) 0 0 / 100% 100%;
 }
 
+.detail_icon_chat {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  background: url(../img/detail/icon_chat.png) 0 0 / 100% 100%;
+}
+
+.detail_icon_order {
+  display: block;
+  width: 14px;
+  height: 17px;
+  background: url(../img/detail/icon_order.png) 0 0 / 100% 100%;
+}
+
 

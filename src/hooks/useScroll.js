@@ -1,4 +1,4 @@
-import { onActivated, onDeactivated, onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { throttle } from "underscore";
 
 // 监听window窗口的滚动
@@ -21,7 +21,8 @@ export default function useScroll(elRef) {
       scrollHeight.value = el.scrollHeight;
       clientHeight.value = el.clientHeight;
     }
-    if (scrollTop.value + clientHeight.value >= scrollHeight.value) {
+    if (scrollTop.value + clientHeight.value >= scrollHeight.value - 2) {
+      console.log('滚动到底部')
       // 滚动到底部
       isReachBottom.value = true;
     }

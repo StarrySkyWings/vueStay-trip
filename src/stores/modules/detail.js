@@ -13,6 +13,7 @@ const useDetailStore = defineStore("detail", {
   },
   getters: {
     mainPart: (state) => state.detailInfos.mainPart,
+    currentHouse: (state) => state.detailInfos.currentHouse,
   },
 });
 

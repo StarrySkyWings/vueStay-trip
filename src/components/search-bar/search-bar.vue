@@ -1,5 +1,5 @@
 <template>
-  <div class="search-bar">
+  <div class="search-bar" @click="handleSearchClick">
     <div class="search">
       <div class="select-time">
         <div class="item start">
@@ -22,15 +22,31 @@
 </template>
 
 <script setup>
+import useCityStore from '@/stores/modules/city';
 import useMainStore from '@/stores/modules/main';
 import { formatMonthDay } from '@/utils/format_date';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 const mainStore = useMainStore()
 const { nowDate, newDate } = storeToRefs(mainStore)
 const startDateStr = computed(() => formatMonthDay(nowDate.value, 'MM.DD'))
 const endDateStr = computed(() => formatMonthDay(newDate.value, 'MM.DD'))
+
+const cityStore = useCityStore()
+const { currentCity } = storeToRefs(cityStore)
+const router = useRouter()
+const handleSearchClick = () => {
+  router.push({
+    path: '/search',
+    query: {
+      startDate: formatMonthDay(nowDate.value),
+      endDate: formatMonthDay(newDate.value),
+      currentCity: currentCity.value.cityName
+    }
+  })
+}
 </script>
 
 <style lang="less" scoped>
