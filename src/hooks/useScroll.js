@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from "vue";
+import { onActivated, onDeactivated, onMounted, onUnmounted, ref } from "vue";
 import { throttle } from "underscore";
 
 // 监听window窗口的滚动
@@ -34,9 +34,11 @@ export default function useScroll(elRef) {
     el.addEventListener("scroll", scrollListenerHandler);
   });
 
+
   onUnmounted(() => {
     el.removeEventListener("scroll", scrollListenerHandler);
   });
+
 
   return {
     isReachBottom,

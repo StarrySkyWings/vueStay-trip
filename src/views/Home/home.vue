@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-nav-bar></home-nav-bar>
     <home-banner></home-banner>
     <home-search-box></home-search-box>
@@ -18,16 +18,16 @@ import homeContent from './cpns/home-content.vue';
 import searchBar from '@/components/search-bar/search-bar.vue';
 import useHomeStore from '@/stores/modules/home.js';
 import useScroll from '@/hooks/useScroll.js';
-import { computed, watch } from 'vue'
+import { computed, onActivated, ref, watch } from 'vue'
 
 defineOptions({
-  name:'home'
+  name: 'home'
 })
-
 const homeStore = useHomeStore()
 
 // 监听滚动到底部
-const { isReachBottom,scrollTop } = useScroll()
+const homeRef = ref()
+const { isReachBottom, scrollTop } = useScroll(homeRef)
 watch(isReachBottom, (newValue) => {
   if (newValue) {
     homeStore.fetchHouselistData().then(() => {
@@ -41,10 +41,20 @@ const isShowSearchBar = computed(() => {
   return scrollTop.value >= 360
 })
 
+// 跳转回home时,保留原来的位置
+onActivated(() => {
+  homeRef.value?.scrollTo({
+    top: scrollTop.value
+  })
+})
+
 </script>
 
 <style lang="less" scoped>
 .home {
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   padding-bottom: 60px;
 }
 </style>
