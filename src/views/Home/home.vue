@@ -19,6 +19,11 @@ import searchBar from '@/components/search-bar/search-bar.vue';
 import useHomeStore from '@/stores/modules/home.js';
 import useScroll from '@/hooks/useScroll.js';
 import { computed, watch } from 'vue'
+
+defineOptions({
+  name:'home'
+})
+
 const homeStore = useHomeStore()
 
 // 监听滚动到底部
