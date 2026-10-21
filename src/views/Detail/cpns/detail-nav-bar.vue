@@ -13,4 +13,10 @@ const onClickLeft = () => {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.navbar {
+  :deep(.van-nav-bar__title) {
+    color: var(--primary-color);
+  }
+}
+</style>

@@ -39,7 +39,7 @@
     <!-- 热门建议 -->
     <div class="section hot-suggest">
       <template v-for="(item, index) in hotSuggests" :key="index">
-        <div class="item" :style="{ color: item.tagText.color, background: item.tagText.background.color }">
+        <div class="item" :style="{ color: item.tagText.color, background: item.tagText.background.color }" @click="searchBtnClick">
           {{ item.tagText.text }}
         </div>
       </template>
@@ -71,11 +71,15 @@ const cityClick = () => {
   router.push('/city')
 }
 const positionClick = () => {
-  navigator.geolocation.getCurrentPosition(res => {
-    console.log('获取成功', res)
-  }, err => {
-    console.log('获取失败', err)
-  })
+  const geolocation = new BMap.Geolocation();
+  geolocation.getCurrentPosition((result) => {
+    if (geolocation.getStatus() === 0) {
+      const { province, city, district } = result.address
+      alert(`当前位置是：${province}${city}${district}`)
+    } else {
+      alert('定位失败')
+    }
+  }, { enableHighAccuracy: true, timeout: 1000 });
 }
 const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
