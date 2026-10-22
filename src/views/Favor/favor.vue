@@ -38,5 +38,6 @@ onActivated(() => {
   height: 100vh;
   overflow-y: auto;
   box-sizing: border-box;
+  padding-bottom: 20px;
 }
 </style>

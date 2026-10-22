@@ -1,12 +1,11 @@
 <template>
- <div class="order">
-  <h2>order</h2>
- </div>
+  <div class="order">
+    <orderNavBar />
+  </div>
 </template>
 
 <script setup>
-
+import orderNavBar from './cpns/order-nav-bar.vue';
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

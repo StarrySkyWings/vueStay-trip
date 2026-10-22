@@ -18,4 +18,8 @@ favorStore.fetchHistoryListData()
 const { historyList } = storeToRefs(favorStore)
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.content {
+  padding: 10px 20px 55px 20px;
+}
+</style>
