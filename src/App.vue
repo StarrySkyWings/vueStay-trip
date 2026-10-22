@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="props">
-    <keep-alive include="home">
+    <keep-alive include="home,favor">
       <component :is='props.Component'></component>
     </keep-alive>
   </router-view>

@@ -22,7 +22,7 @@ export default function useScroll(elRef) {
       clientHeight.value = el.clientHeight;
     }
     if (scrollTop.value + clientHeight.value >= scrollHeight.value - 2) {
-      console.log('滚动到底部')
+      // console.log('滚动到底部')
       // 滚动到底部
       isReachBottom.value = true;
     }

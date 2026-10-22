@@ -17,7 +17,6 @@
         </div>
       </div>
     </van-popup>
-
   </div>
 
 </template>
