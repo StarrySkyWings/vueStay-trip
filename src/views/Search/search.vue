@@ -1,14 +1,18 @@
 <template>
- <div class="search top-page">
-  <h2>开始时间：{{ $route.query.startDate }}</h2>
-  <h2>结束时间：{{ $route.query.endDate }}</h2>
-  <h2>当前城市：{{ $route.query.currentCity }}</h2>
- </div>
+  <div class="search top-page">
+    <!-- 导航栏 -->
+    <searchNavBar />
+  </div>
 </template>
 
 <script setup>
-
+import searchNavBar from './cpns/search-nav-bar.vue';
 </script>
 
 <style lang="less" scoped>
+.search {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
 </style>

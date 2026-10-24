@@ -23,7 +23,7 @@ import { ref } from 'vue';
 const router = useRouter()
 // 监听返回按钮的点击
 const onClickLeft = () => {
-  router.push('/home')
+  router.replace('/home')
 }
 const showRight = ref(false)
 const onClickRight = () => {

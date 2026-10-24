@@ -5,7 +5,9 @@
     <home-search-box></home-search-box>
     <home-categories></home-categories>
     <home-content></home-content>
-    <search-bar v-if="isShowSearchBar"></search-bar>
+    <div class="home-top" v-if="isShowSearchBar">
+      <search-bar :search-icon="true"></search-bar>
+    </div>
   </div>
 </template>
 
@@ -56,5 +58,15 @@ onActivated(() => {
   overflow-y: auto;
   box-sizing: border-box;
   padding-bottom: 60px;
+
+  .home-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 16px 10px 16px;
+    background-color: white;
+    z-index: 100;
+  }
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div class="search-bar" @click="handleSearchClick">
     <div class="search">
+      <div v-if="title" class="left">
+        <span>{{ title }}</span>
+      </div>
       <div class="select-time">
         <div class="item start">
           <div class="name">住</div>
@@ -11,11 +14,11 @@
           <div class="date">{{ endDateStr }}</div>
         </div>
       </div>
-      <div class="content">
-        <span class=" keyword">关键字/位置/民宿</span>
+      <div class="content ellipsis-text-1">
+        <span class="keyword">{{ keyword }}</span>
       </div>
       <div class="right">
-        <i class="icon-search"></i>
+        <i class="icon-search" v-if="searchIcon"></i>
       </div>
     </div>
   </div>
@@ -28,6 +31,29 @@ import { formatMonthDay } from '@/utils/format_date';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: ''
+  },
+  searchIcon: {
+    type: Boolean,
+    default: false
+  },
+  height: {
+    type: String,
+    default: '45px'
+  },
+  keyword: {
+    type: String,
+    default: '关键字/位置/民宿'
+  },
+  keyWordFontSize: {
+    type: String,
+    default: '12px'
+  },
+})
 
 const mainStore = useMainStore()
 const { nowDate, newDate } = storeToRefs(mainStore)
@@ -50,25 +76,22 @@ const handleSearchClick = () => {
 </script>
 
 <style lang="less" scoped>
+:global(.van-nav-bar .van-nav-bar__content .van-nav-bar__title) {
+  width: 73%;
+  max-width: 100%;
+}
+
 .search-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 45px;
-  padding: 16px 16px 10px 16px;
-  background-color: #fff;
-  z-index: 9;
 
   .search {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    // height: v-bind("props.height");
-    height: 45px;
-    // line-height: v-bind("props.height");
-    line-height: 45px;
+    height: v-bind("props.height");
+    // height: 45px;
+    line-height: v-bind("props.height");
+    // line-height: 45px;
 
     padding: 0 10px;
     font-size: 14px;
@@ -139,21 +162,21 @@ const handleSearchClick = () => {
 
       .keyword {
         max-width: 155px;
-        // font-size: v-bind("props.keyWordFontSize");
-        font-size: 12px;
+        font-size: v-bind("props.keyWordFontSize");
+        // font-size: 12px;
       }
 
-      .icon-cancel {
-        position: absolute;
-        top: 30%;
-        right: 0;
-        display: inline-block;
-        background-image: url(../../assets/img/sprite.png);
-        background-position: -92px -58.5px;
-        width: 14.5px;
-        height: 15px;
-        background-size: 125px 110px;
-      }
+      // .icon-cancel {
+      //   position: absolute;
+      //   top: 30%;
+      //   right: 0;
+      //   display: inline-block;
+      //   background-image: url(../../assets/img/sprite.png);
+      //   background-position: -92px -58.5px;
+      //   width: 14.5px;
+      //   height: 15px;
+      //   background-size: 125px 110px;
+      // }
     }
 
     .right {

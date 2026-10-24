@@ -1,8 +1,8 @@
 <template>
-  <div class="content">
+  <div class="content" ref="orderContentRef">
     <div class="content-inner" v-if="orderList.length">
-      <template v-for="(item,index) in orderList" :key="index">
-       <orderItem :item-data="item"/>
+      <template v-for="(item, index) in orderList" :key="index">
+        <orderItem :item-data="item" />
       </template>
     </div>
     <div class="tips" v-else>
@@ -13,23 +13,32 @@
 </template>
 
 <script setup>
+import useScroll from '@/hooks/useScroll.js';
 import orderItem from './order-item.vue';
 import useOrderStore from '@/stores/modules/order';
 import { storeToRefs } from 'pinia';
-import { watch } from 'vue';
+import { onActivated, ref, watch } from 'vue';
 
 const props = defineProps({
-  activeIndex:{
-    type:String,
-    default:'all'
+  activeIndex: {
+    type: String,
+    default: 'all'
   }
 })
 
 const orderStore = useOrderStore()
 orderStore.fetchOrderListData()
 const { orderList } = storeToRefs(orderStore)
-watch(() => props.activeIndex,(newValue) => {
+watch(() => props.activeIndex, (newValue) => {
   orderStore.fetchOrderListData(newValue)
+})
+
+const orderContentRef = ref()
+const { scrollTop } = useScroll(orderContentRef)
+onActivated(() => {
+  orderContentRef.value?.scrollTo({
+    top: scrollTop.value
+  })
 })
 </script>
 
@@ -42,7 +51,7 @@ watch(() => props.activeIndex,(newValue) => {
   .tips {
     text-align: center;
     margin-top: 80px;
-    
+
 
     img {
       width: 88%;

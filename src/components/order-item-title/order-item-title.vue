@@ -1,7 +1,7 @@
 <template>
   <div class="order-item-title">
     <div class="name ellipsis-text-1">
-      {{ titleData.unitName }}
+      {{ removeString(titleData.unitName)}}
     </div>
     <div class="status-name" :style="{color:titleData.orderStatusDescColor }">
       {{ titleData.orderStatusDesc }}
@@ -17,6 +17,10 @@ defineProps({
     default: () => ({})
   }
 })
+
+const removeString = (stringText) => {
+  return stringText.replaceAll('3', '').replaceAll('｛', '').replaceAll('｝','').replaceAll('①','')
+}
 </script>
 
 <style lang="less" scoped>
