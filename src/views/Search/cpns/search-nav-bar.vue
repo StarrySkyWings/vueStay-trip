@@ -5,7 +5,7 @@
         <van-icon name="wap-nav" size="18" />
       </template>
       <template #title>
-        <searchBar :title="route.query.currentCity" height="35px" keyword="搜索博尔塔拉的景点、地标、房源"/>
+        <searchBar :title="route.query.currentCity" height="35px" keyword="搜索广州的景点、地标、房源" />
       </template>
     </van-nav-bar>
     <van-popup v-model:show="showRight" closeable position="right" :style="{ width: '50%', height: '100%' }">
@@ -25,7 +25,6 @@ import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 
 const route = useRoute()
-console.log(route.query.address)
 const router = useRouter()
 const onClickLeft = () => {
   router.back()

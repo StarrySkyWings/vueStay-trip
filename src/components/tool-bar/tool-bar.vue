@@ -1,6 +1,6 @@
 <template>
   <div class="tool-bar">
-    <img class="avatar" :src="toolData.logoUrl" alt="">
+    <img class="avatar" :src="changeImageUrl(toolData.logoUrl)" alt="">
     <div class="collection">
       <img class="heart-img" src="@/assets/img/search/tj-mob-ui_unit-item_collected-new.png" alt="">
       <span v-if="toolData.favoriteCount">{{ toolData.favoriteCount }}</span>
@@ -19,6 +19,13 @@ defineProps({
     default: () => ({})
   }
 })
+const changeImageUrl = (string) => {
+  if(string === "https://pic.tujia.comnull"){
+    return 'https://ts1.tc.mm.bing.net/th/id/OIP-C.4xXedxOLL2lVc2ARHKTAOQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3'
+  }
+  return string
+}
+
 </script>
 
 <style lang="less" scoped>
