@@ -7,9 +7,21 @@
     </van-nav-bar>
     <van-popup v-model:show="showRight" closeable position="right" :style="{ width: '50%', height: '100%' }">
       <div class="sidebar">
-        <div class="sidebar-item" @click="itemClick">
+        <div class="sidebar-item" @click="itemClick('/home')">
           <van-icon color="#333" size="20" name="home-o" />
           <div class="text">首页</div>
+        </div>
+        <div class="sidebar-item" @click="itemClick('/favor')">
+          <van-icon color="#333" size="20" name="like-o" />
+          <div class="text">收藏</div>
+        </div>
+        <div class="sidebar-item" @click="itemClick('/order')">
+          <van-icon color="#333" size="20" name="orders-o" />
+          <div class="text">订单</div>
+        </div>
+        <div class="sidebar-item" @click="itemClick('/message')">
+          <van-icon color="#333" size="20" name="comment-o" />
+          <div class="text">消息</div>
         </div>
       </div>
     </van-popup>
@@ -29,8 +41,8 @@ const showRight = ref(false)
 const onClickRight = () => {
   showRight.value = true
 }
-const itemClick = () => {
-  router.push('/home')
+const itemClick = (path) => {
+  router.replace(path)
 }
 
 </script>
@@ -54,6 +66,7 @@ const itemClick = () => {
       width: 100px;
       border-bottom: 1px solid #f5f5f5;
       color: #333;
+      margin-top: 20px;
 
       .text {
         font-size: 14px;

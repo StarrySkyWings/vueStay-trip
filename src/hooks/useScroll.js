@@ -21,6 +21,7 @@ export default function useScroll(elRef) {
       scrollHeight.value = el.scrollHeight;
       clientHeight.value = el.clientHeight;
     }
+    // console.log(scrollHeight.value, scrollTop.value, clientHeight.value);
     if (scrollTop.value + clientHeight.value >= scrollHeight.value - 2) {
       // console.log('滚动到底部')
       // 滚动到底部
@@ -35,11 +36,9 @@ export default function useScroll(elRef) {
     el.addEventListener("scroll", scrollListenerHandler);
   });
 
-
   onUnmounted(() => {
     el.removeEventListener("scroll", scrollListenerHandler);
   });
-
 
   return {
     isReachBottom,
