@@ -377,22 +377,6 @@ Base URL：`https://tripapi.devstream.de5.net/api`
 
 ---
 
-## 已知问题与待办
-
-以下是代码走查中发现的、建议后续处理的问题（不影响主要流程演示）：
-
-| 位置 | 问题 | 建议 |
-| --- | --- | --- |
-| `views/Detail/cpns/detail-map.vue` | `catch` 分支里给未声明的 `loadFailed` 赋值（`loadFailed.value = true`），会抛 `ReferenceError` | 补 `const loadFailed = ref(false)` 并渲染降级占位图 |
-| `views/Home/cpns/home-search-box.vue` | `positionClick` 直接 `new BMap.Geolocation()`，但 `index.html` 中的地图脚本已注释，未先进入详情页时 `BMap` 未定义 | 改为 `await loadBaiduMap()` 后再用，与 `detail-map` 保持一致 |
-| `App.vue` | `<tab-bar/>` 无条件渲染，详情页/城市页/消息页也会出现底部导航 | 改用 `route.meta.hidden` 或 `v-if` 按路由控制（文件内已有注释掉的示例） |
-| `services/request/index.js` | 拦截器统一 `isLoading` 开关，并发请求时会提前关闭遮罩 | 改为计数器（`pending++ / pending--`） |
-| `stores/modules/favor.js` | 文件内导出名 `usefavorStore` 大小写不规范 | 统一为 `useFavorStore` |
-| `views/City/city.vue` | `searchValue`、`tabActive` 定义了但未接入筛选逻辑 | 补城市搜索过滤 |
-| `components/dropdown-select` | 「筛选」`gType=1` 面板仍是「正在开发中」占位 | 接入真实筛选条件 |
-| 工程化 | 缺少 ESLint / Prettier / 单元测试 / TypeScript | 建议引入 ESLint + Prettier，关键 hooks 补 Vitest |
-
----
 
 ## License
 
