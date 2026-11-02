@@ -1,2 +1,2 @@
-export const BASE_URL = "http://codercba.com:1888/api";
+export const BASE_URL = "https://tripapi.devstream.de5.net/api";
 export const TIMEOUT = 10000;

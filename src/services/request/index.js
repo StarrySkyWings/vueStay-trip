@@ -22,7 +22,7 @@ class myRequest {
       return res
     },err => {
       mainStore.isLoading = false
-      return err
+      return Promise.reject(err);
     })
   }
 

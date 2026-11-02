@@ -8,6 +8,7 @@
 
 <script setup>
 import detailSection from '@/components/detail-section/detail-section.vue';
+import { loadBaiduMap } from '@/utils/bmap';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
@@ -17,7 +18,17 @@ const props = defineProps({
   }
 })
 const mapRef = ref()
-onMounted(() => {
+onMounted(async () => {
+  // SDK 按需加载，首屏不再被它阻塞
+  try {
+    await loadBaiduMap()
+  } catch (err) {
+    console.warn('[map]', err.message)
+    loadFailed.value = true
+    return
+  }
+
+  const BMap = window.BMap
   const map = new BMap.Map(mapRef.value); // 创建地图实例
   const point = new BMap.Point(props.position.longitude, props.position.latitude); // 创建点坐标
   map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
